@@ -202,12 +202,12 @@ public class EgresoController {
 
 		return new ResponseEntity<Integer>(resultado, HttpStatus.OK);
 	}
-	@GetMapping(value = "/generarReporte/{id}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-	public ResponseEntity<byte[]> generarReporte(@PathVariable("id") Integer id) {
+	@GetMapping(value = "/generarReporte/{id}/{idUsuario}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	public ResponseEntity<byte[]> generarReporte(@PathVariable("id") Integer id, @PathVariable("idUsuario") String idUsuario) {
 		logger.info("ide: "+id);
 		byte[] data = null;
 		try {
-			data = service.generarReporte(id);
+			data = service.generarReporte(id, idUsuario);
 		} catch (Exception e) {
 			// TODO: handle exception
 			logger.info(""+e);

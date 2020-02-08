@@ -17,7 +17,7 @@ public interface IEgresoService {
 	Egreso listarId(int Egr_Ide);
 	List<Egreso>listar();
 	Page<Egreso> listAllByPage(Pageable pageable);
-	byte[] generarReporte(int id) throws Exception ;
+	byte[] generarReporte(int id, String idUsuario) throws Exception ;
 	
 	public List<Object> listarPorDepartamento(String term)  throws Exception ;
 	public List<Object> listarPorSuministro(String term)  throws Exception ;

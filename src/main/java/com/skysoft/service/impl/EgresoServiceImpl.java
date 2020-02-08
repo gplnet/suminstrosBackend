@@ -16,10 +16,12 @@ import org.springframework.stereotype.Service;
 import com.skysoft.dao.IDepartamentoDAO;
 import com.skysoft.dao.IEgresoDAO;
 import com.skysoft.dao.ISuministroDAO;
+import com.skysoft.dao.IUsuarioDAO;
 import com.skysoft.model.Departamento;
 import com.skysoft.model.Egreso;
 import com.skysoft.model.Suministro;
 import com.skysoft.model.SuministroEgreso;
+import com.skysoft.model.Usuario;
 import com.skysoft.services.IEgresoService;
 import com.skysoft.util.EgresoReporte;
 
@@ -40,6 +42,9 @@ public class EgresoServiceImpl implements IEgresoService{
 	
 	@Autowired
 	private IDepartamentoDAO depDAO;
+	
+	@Autowired
+	private IUsuarioDAO usrDAO;
 	
 	@Override
 	public Egreso registrar(Egreso egreso) {
@@ -83,11 +88,12 @@ public class EgresoServiceImpl implements IEgresoService{
 	}
 
 	@Override
-	public byte[] generarReporte(int id) throws Exception {
+	public byte[] generarReporte(int id, String idUsuario) throws Exception {
 		// TODO Auto-generated method stub
 		String logotipo="/img/machala.png";
 		String logotipo2="/img/alcaldia.png";
 		Egreso egrs = this.listarId(id);
+		//Usuario usr = usrDAO.findById(idUsuario).get();
 		
 		Departamento dep = this.depDAO.findById(egrs.getDepartamento().getDpr_Ide()).get();
 		
@@ -109,6 +115,7 @@ public class EgresoServiceImpl implements IEgresoService{
 			
 		Map<String, Object> cabecera = new HashMap<>();
 		cabecera.put("departamento", dep.getDpr_Nom().concat(" - "+dep.getDpr_Res()));
+		cabecera.put("usuario", idUsuario);
 		cabecera.put("fecha", egrs.getEgr_fec().toString());
 		cabecera.put("ItemDataSource", dataSource);
 		cabecera.put("ide", " "+egrs.getEgr_ide());
