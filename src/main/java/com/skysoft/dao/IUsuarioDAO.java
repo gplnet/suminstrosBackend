@@ -13,5 +13,8 @@ public interface IUsuarioDAO extends JpaRepository<Usuario, Integer> {
 	
 	@Query(value="select max(id_usuario) as maximo from usuario", nativeQuery = true)
 	public int maxUsuarioCod();
+	
+	@Query(value = "select * from usuario where nombre=?1", nativeQuery = true)
+	public Usuario getUsuarioByNombre(String nombre);
 
 }

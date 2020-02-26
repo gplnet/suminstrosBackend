@@ -20,82 +20,64 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skysoft.model.Suministro;
-import com.skysoft.services.IEquipoService;
-import com.skysoft.services.ISuministroService;
+import com.skysoft.model.Eliminado;
 
-
+import com.skysoft.services.IEliminadoService;
 
 @RestController 
-@RequestMapping("/suministro")
-public class SuministroController {
+@RequestMapping("/eliminado")
+public class EliminadoController {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-
-	@Autowired
-	private ISuministroService service;
+	
 	
 	@Autowired
-	private IEquipoService eServices;
+	private IEliminadoService service;
 	
 	@GetMapping(value = "/listar", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Suministro>> listar(){
-		List<Suministro> suministros = new ArrayList<>();
+	public ResponseEntity<List<Eliminado>> listar(){
+		List<Eliminado> eliminados = new ArrayList<>();
 		try {
-			suministros = service.listar();
+			eliminados = service.listar();
 		} catch (Exception e) {
 			// TODO: handle exception
 			new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return new ResponseEntity<List<Suministro>>(suministros, HttpStatus.OK);		
+		return new ResponseEntity<List<Eliminado>>(eliminados, HttpStatus.OK);		
 	}
 	
 	@GetMapping(value = "/listarPageable", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Page<Suministro>> listar(Pageable pageable){
-		Page<Suministro> suministro = null;
+	public ResponseEntity<Page<Eliminado>> listar(Pageable pageable){
+		Page<Eliminado> suministro = null;
 		try {
-			suministro = service.listAllistAllByPageDoslByPage(pageable);
+			suministro = service.listAllByPage(pageable);
 		} catch (Exception e) {
 			// TODO: handle exception
-			new ResponseEntity<Page<Suministro>>(HttpStatus.INTERNAL_SERVER_ERROR);
+			new ResponseEntity<Page<Eliminado>>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return new ResponseEntity<Page<Suministro>>(suministro, HttpStatus.OK);		
+		return new ResponseEntity<Page<Eliminado>>(suministro, HttpStatus.OK);		
 	}
-	
 	
 	@GetMapping(value="/listar/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Suministro> listarId (@PathVariable("id") Integer id){
+	public ResponseEntity<Eliminado> listarId (@PathVariable("id") Integer id){
 		//Hola jodida mia 
-		Suministro suministro = new Suministro();
+		Eliminado eliminado = new Eliminado();
 		try {
-			suministro = service.listarId(id);
+			eliminado = service.listarId(id);
 		} catch (Exception e) {
 			// TODO: handle exception
-			return new ResponseEntity<Suministro>(suministro, HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Eliminado>(eliminado, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return new ResponseEntity<Suministro>(suministro, HttpStatus.OK);	
+		return new ResponseEntity<Eliminado>(eliminado, HttpStatus.OK);	
 		
 	}
 	
-	@GetMapping(value="/listarByCod/{codigo}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Suministro> listarByCod (@PathVariable("codigo") String codigo){
-		//Hola jodida mia 
-		Suministro suministro = new Suministro();
-		try {
-			suministro = service.searchByCod(codigo);
-		} catch (Exception e) {
-			// TODO: handle exception
-			return new ResponseEntity<Suministro>(suministro, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-		return new ResponseEntity<Suministro>(suministro, HttpStatus.OK);	
-		
-	}
 	@PostMapping(value = "/registrar", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Integer> registrar(@RequestBody Suministro sum ){
+	public ResponseEntity<Integer> registrar(@RequestBody Eliminado elim ){
 		//Equipo eq = new Equipo();
 		int rpta = 0;
 		try {
-			rpta = service.registrar(sum);
+			rpta = service.registrar(elim);
 		} catch (Exception e) {
 			// TODO: handle exception
 			return new ResponseEntity<Integer>(rpta, HttpStatus.INTERNAL_SERVER_ERROR);	
@@ -104,11 +86,12 @@ public class SuministroController {
 		return new ResponseEntity<Integer>(rpta, HttpStatus.OK);
 		
 	}
+	
 	@PutMapping(value = "/actualizar", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Integer> actualizar(@RequestBody Suministro sum) {
+	public ResponseEntity<Integer> actualizar(@RequestBody Eliminado elim) {
 		int resultado = 0;
 		try {
-			resultado = service.modificar(sum);
+			resultado = service.modificar(elim);
 			resultado = 1;
 		} catch (Exception e) {
 			return new ResponseEntity<Integer>(resultado, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -130,17 +113,7 @@ public class SuministroController {
 		return new ResponseEntity<Integer>(resultado, HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/generarReporte/{nombre}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-	public ResponseEntity<byte[]> generarReporte(@PathVariable("nombre") String nombre) {
-		logger.info("nombre: "+nombre);
-		byte[] data = null;
-		try {
-			data = service.generarReporteAllSuministros(nombre);
-		} catch (Exception e) {
-			// TODO: handle exception
-			logger.info(""+e);
-			return new ResponseEntity<byte[]>(data, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-		return new ResponseEntity<byte[]>(data, HttpStatus.OK);
-	}
+	
+	
+
 }

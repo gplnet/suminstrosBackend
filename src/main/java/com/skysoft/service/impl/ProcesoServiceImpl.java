@@ -58,4 +58,10 @@ public class ProcesoServiceImpl implements IProcesoService {
 		return dao.findAll(pageable);
 	}
 
+	@Override
+	public Proceso searchByCod(String codigo) {
+		// TODO Auto-generated method stub
+		return dao.searchByCod(codigo);
+	}
+
 }

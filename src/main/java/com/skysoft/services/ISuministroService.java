@@ -19,4 +19,6 @@ public interface ISuministroService {
 	Page<Suministro> listAllistAllByPageDoslByPage(Pageable pageable);
 	Suministro buscarById(Integer idSumEgreso, Integer idSuministro) throws Exception;
 	byte[] generarReporteAllSuministros(String nombre) throws Exception ;
+	
+	Suministro searchByCod(String codigo) throws Exception;
 }

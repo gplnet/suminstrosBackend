@@ -114,6 +114,12 @@ public class SuministroServiceImpl implements ISuministroService{
 		JasperPrint print = JasperFillManager.fillReport(file.getPath(),cabecera, new JREmptyDataSource());
 		return JasperExportManager.exportReportToPdf(print);
 	}
+
+	@Override
+	public Suministro searchByCod(String codigo) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.searchByCod(codigo);
+	}
 	
 	
 	

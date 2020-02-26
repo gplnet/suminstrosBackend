@@ -18,4 +18,7 @@ public interface ISuministroDAO extends JpaRepository<Suministro, Integer>{
 	@Query(value="select * from suministro \n" + 
 			"inner join equipo on  equipo.eqp_ide = suministro.eqp_ide", nativeQuery = true)
 	Page<Suministro> listAllByPageDos(Pageable pageable);
+	
+	@Query(value="select * from suministro where sum_cod=?1", nativeQuery = true)
+	public Suministro searchByCod(String codigo);
 }

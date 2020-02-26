@@ -71,6 +71,20 @@ public class ProcesoController {
 		return new ResponseEntity<Proceso>(proceso, HttpStatus.OK);	
 		
 	}
+	
+	@GetMapping(value="/listarByCod/{codigo}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Proceso> listarByCod (@PathVariable("codigo") String codigo){
+		//Hola jodida mia 
+		Proceso proceso = new Proceso();
+		try {
+			proceso = service.searchByCod(codigo);
+		} catch (Exception e) {
+			// TODO: handle exception
+			return new ResponseEntity<Proceso>(proceso, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<Proceso>(proceso, HttpStatus.OK);	
+		
+	}
 	@PostMapping(value = "/registrar", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Integer> registrar(@RequestBody Proceso proc ){
 		//Equipo eq = new Equipo();

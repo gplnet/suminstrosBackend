@@ -15,4 +15,5 @@ public interface IProcesoService {
 	Proceso listarId(int Pcs_Ide);
 	List<Proceso>listar();
 	Page<Proceso> listAllByPage(Pageable pageable);
+	Proceso searchByCod(String codigo);
 }

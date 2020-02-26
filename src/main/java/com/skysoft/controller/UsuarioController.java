@@ -78,6 +78,20 @@ public class UsuarioController {
 		
 	}
 	
+	@GetMapping(value="/listarByName/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Usuario> listarByName(@PathVariable("name") String name) {
+		
+		Usuario user = new Usuario();
+		try {
+			user = this.usuarioDAO.getUsuarioByNombre(name);
+		} catch (Exception e) {
+			// TODO: handle exception
+			return new ResponseEntity<Usuario>(user, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<Usuario>(user, HttpStatus.OK);
+		
+	}
+	
 	@PutMapping(value = "/actualizar", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Integer> actualizar(@RequestBody Usuario usr){
 		int resultado = 0;
