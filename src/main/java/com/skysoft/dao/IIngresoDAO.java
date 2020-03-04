@@ -19,5 +19,8 @@ public interface IIngresoDAO extends JpaRepository<Ingreso, Integer> {
 	
 	@Query(value="select ingreso.*, proceso.pcs_cod, proceso.pcs_fec, suministro_entrada.sen_ide, suministro_entrada.sen_can, suministro.* from ingreso  inner join proceso on proceso.pcs_ide = ingreso.pcs_ide inner join suministro_entrada on suministro_entrada.ing_ide= ingreso.ing_ide inner join suministro on suministro.sum_ide=suministro_entrada.sum_ide where ingreso.ing_fec >= ?1 and ingreso.ing_fec <= ?2", nativeQuery = true)
 	public List<Object> listarPorFechaIngreso(String desde, String hasta);
+	
+	@Query(value="select ingreso.*, proceso.pcs_cod, proceso.pcs_fec, suministro_entrada.sen_ide, suministro_entrada.sen_can, suministro.* from ingreso  inner join proceso on proceso.pcs_ide = ingreso.pcs_ide inner join suministro_entrada on suministro_entrada.ing_ide= ingreso.ing_ide inner join suministro on suministro.sum_ide=suministro_entrada.sum_ide where ingreso.ing_ide = ?1", nativeQuery = true)
+	public List<Object> searchByCodIngreso(int id);
 
 }

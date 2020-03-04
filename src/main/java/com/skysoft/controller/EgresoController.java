@@ -100,6 +100,27 @@ public class EgresoController {
 		return new ResponseEntity<List<Object>>(egreso, HttpStatus.OK);		
 	}
 	
+	@GetMapping(value = "/listarEgresos/{desde}/{hasta}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Object>> listarEgresos(@PathVariable("desde") String desde,@PathVariable("hasta") String hasta){
+		List<Object> egreso = new ArrayList<>();
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Date date = new Date(sdf.parse(desde).getTime());
+			
+			SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");			
+			Date date2 = new Date(sdf2.parse(hasta).getTime());
+			
+			logger.info("error: "+sdf2.format(date));
+			logger.info("error: "+sdf2.format(date2));
+			egreso = service.listarEgresos(desde, hasta);
+		} catch (Exception e) {
+			// TODO: handle exception
+			logger.info("error: "+e);
+			new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<List<Object>>(egreso, HttpStatus.OK);		
+	}
+	
 	@GetMapping(value = "/listarPageable", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Page<Egreso>> listar(Pageable pageable){
 		Page<Egreso> egreso = null;
@@ -124,6 +145,22 @@ public class EgresoController {
 			return new ResponseEntity<Egreso>(egreso, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<Egreso>(egreso, HttpStatus.OK);	
+		
+	}
+	
+	@GetMapping(value="/searchByCodEgreso/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Object>> searchByCodEgreso (@PathVariable("id") Integer id){
+		//Hola jodida mia 
+		logger.info("numero: "+id);
+		List<Object> egreso = new ArrayList<>();
+		try {
+			egreso = service.searchByCodEgreso(id);
+		} catch (Exception e) {
+			// TODO: handle exception
+			logger.info("numero error: "+e);
+			return new ResponseEntity<List<Object>>(egreso, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<List<Object>>(egreso, HttpStatus.OK);	
 		
 	}
 	@PostMapping(value = "/registrar", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

@@ -124,6 +124,22 @@ public class IngresoController {
 		return new ResponseEntity<Ingreso>(ingreso, HttpStatus.OK);	
 		
 	}
+	
+	@GetMapping(value="/searchByCodIngreso/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Object>> searchByCodIngreso (@PathVariable("id") Integer id){
+		//Hola jodida mia 
+		logger.info("numero: "+id);
+		List<Object> ingreso = new ArrayList<>();
+		try {
+			ingreso = service.searchByCodIngreso(id);
+		} catch (Exception e) {
+			// TODO: handle exception
+			logger.info("numero error: "+e);
+			return new ResponseEntity<List<Object>>(ingreso, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<List<Object>>(ingreso, HttpStatus.OK);	
+		
+	}
 	@PostMapping(value = "/registrar", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Ingreso> registrar(@RequestBody Ingreso ingr ){
 		//Equipo eq = new Equipo();

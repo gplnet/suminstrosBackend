@@ -1,6 +1,6 @@
 package com.skysoft.dao;
 
-import java.util.Date;
+
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,6 +20,12 @@ public interface IEgresoDAO extends JpaRepository<Egreso, Integer>{
 	
 	@Query(value = "select egreso.*, departamento.*, suministro_egreso.seg_ide, suministro_egreso.seg_can, suministro.* from egreso inner join departamento on departamento.dpr_ide = egreso.departamento_dpr_ide inner join suministro_egreso on suministro_egreso.egr_ide= egreso.egr_ide inner join suministro on suministro.sum_ide=suministro_egreso.sum_ide where egreso.egr_fec >= ?1 and egreso.egr_fec <= ?2", nativeQuery = true)
 	public List<Object> listarPorFechaEgreso(String desde, String hasta);
+	
+	@Query(value="select egreso.*, departamento.dpr_nom, departamento.dpr_res from egreso  inner join departamento on departamento.dpr_ide = egreso.departamento_dpr_ide where egreso.egr_fec >= ?1 or egreso.egr_fec <= ?2 ", nativeQuery = true)
+	public List<Object> listarEgresos(String desde, String hasta);
+	
+	@Query(value="select egreso.*, departamento.*, suministro_egreso.seg_ide, suministro_egreso.seg_can, suministro.* from egreso inner join departamento on departamento.dpr_ide = egreso.departamento_dpr_ide inner join suministro_egreso on suministro_egreso.egr_ide= egreso.egr_ide inner join suministro on suministro.sum_ide=suministro_egreso.sum_ide where egreso.egr_ide =?1", nativeQuery = true)
+	public List<Object> searchByCodEgreso( int id);
 	
 
 }

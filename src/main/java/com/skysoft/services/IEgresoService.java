@@ -17,9 +17,13 @@ public interface IEgresoService {
 	Egreso listarId(int Egr_Ide);
 	List<Egreso>listar();
 	Page<Egreso> listAllByPage(Pageable pageable);
-	byte[] generarReporte(int id, String idUsuario) throws Exception ;
+	byte[] generarReporte(int id, String idUsuario) throws Exception;
 	
-	public List<Object> listarPorDepartamento(String term)  throws Exception ;
-	public List<Object> listarPorSuministro(String term)  throws Exception ;
-	public List<Object> listarPorFechaEgreso(String desde, String hasta)  throws Exception ;
+	public List<Object> listarPorDepartamento(String term)  throws Exception;
+	public List<Object> listarPorSuministro(String term)  throws Exception;
+	public List<Object> listarPorFechaEgreso(String desde, String hasta)  throws Exception;
+	
+	public List<Object> listarEgresos(String desde, String hasta) throws Exception;
+	
+	public List<Object> searchByCodEgreso(int id) throws Exception;
 }

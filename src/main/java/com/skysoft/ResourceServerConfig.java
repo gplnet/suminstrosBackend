@@ -42,7 +42,9 @@ public class ResourceServerConfig  extends ResourceServerConfigurerAdapter{
                 .antMatchers("/home/**" ).authenticated()
                 .antMatchers("/eliminado/**" ).authenticated()
                 .antMatchers("/listar-ingresos/**" ).authenticated()
+                .antMatchers("/control-ingresos/**" ).authenticated()
                 .antMatchers("/listar-egresos/**" ).authenticated()
+                .antMatchers("/control-egresos/**" ).authenticated()
                 .antMatchers("/suministro/**" ).authenticated();
     }
 

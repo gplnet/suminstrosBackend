@@ -148,5 +148,17 @@ public class EgresoServiceImpl implements IEgresoService{
 		return dao.listarPorFechaEgreso(desde, hasta);
 	}
 
+	@Override
+	public List<Object> listarEgresos(String desde, String hasta) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.listarEgresos(desde, hasta);
+	}
+
+	@Override
+	public List<Object> searchByCodEgreso(int id) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.searchByCodEgreso(id);
+	}
+
 	
 }

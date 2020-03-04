@@ -20,4 +20,6 @@ public interface IIngresoService {
 	public List<Object> listarPorSuministro(String term)  throws Exception ;
 	public List<Object> listarPorProceso(String term)  throws Exception ;
 	public List<Object> listarPorFechaIngreso(String desde, String hasta)  throws Exception ;
+	
+	public List<Object> searchByCodIngreso(int id) throws Exception ;
 }

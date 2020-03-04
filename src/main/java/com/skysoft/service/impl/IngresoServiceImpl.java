@@ -136,4 +136,10 @@ public class IngresoServiceImpl implements IIngresoService {
 		return dao.listarPorFechaIngreso(desde, hasta);
 	}
 
+	@Override
+	public List<Object> searchByCodIngreso(int id) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.searchByCodIngreso(id);
+	}
+
 }
